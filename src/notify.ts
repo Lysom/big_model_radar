@@ -12,7 +12,7 @@
 import fs from "node:fs";
 
 const BOT_TOKEN = process.env["TELEGRAM_BOT_TOKEN"] ?? "";
-const CHAT_ID = process.env["TELEGRAM_CHAT_ID"] ?? "";
+const CHAT_ID = process.env["TELEGRAM_CHAT_ID"] || "@agents_radar";
 const PAGES_URL = (process.env["PAGES_URL"] ?? "https://duanyytop.github.io/agents-radar").replace(/\/$/, "");
 
 const ZH_LABELS: Record<string, string> = {
@@ -86,8 +86,8 @@ function buildMessage(date: string, reports: string[]): string {
 }
 
 async function main(): Promise<void> {
-  if (!BOT_TOKEN || !CHAT_ID) {
-    console.log("[notify] TELEGRAM_BOT_TOKEN or TELEGRAM_CHAT_ID not set — skipping.");
+  if (!BOT_TOKEN) {
+    console.log("[notify] TELEGRAM_BOT_TOKEN not set — skipping.");
     return;
   }
 
